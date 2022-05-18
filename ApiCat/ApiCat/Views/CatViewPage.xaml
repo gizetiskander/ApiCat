@@ -2,15 +2,18 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ApiCat.Views.CatViewPage">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Clicked="ToolbarItem_Clicked" Text="+" />
+    </ContentPage.ToolbarItems>
     <ContentPage.Content>
-        <ListView x:Name="listView">
+        <ListView x:Name="listView" ItemSelected="listView_ItemSelected">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <StackLayout>
+                        <Label Text="{Binding id}" TextColor="Black"/>
                         <Label Text="{Binding name}" TextColor="Black" />
                         <Label Text="{Binding color}" TextColor="Black"/>
-                        <Label Text="{Binding}" TextColor="Black"/>
-                        <Label Text="{Binding}" TextColor="Black"/>
+                        <Label Text="{Binding gender}" TextColor="Black"/>
                     </StackLayout>
                 </DataTemplate>
             </ListView.ItemTemplate>

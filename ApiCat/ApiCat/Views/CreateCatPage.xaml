@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ApiCat.Views.CreateCatPage">
+    <ContentPage.Content>
+        <StackLayout>
+            <Label HorizontalOptions="CenterAndExpand" Text="Номер кота/кошки" />
+            <Entry Placeholder="введите текст" Text="{Binding id}"/>
+            <Label HorizontalOptions="CenterAndExpand" Text="Наименование кота/кошки" />
+            <Entry Placeholder="введите текст" Text="{Binding name}"/>
+            <Label HorizontalOptions="CenterAndExpand" Text="Цвет кота/кошки" />
+            <Entry Placeholder="введите текст" Text="{Binding color}"/>
+            <Label HorizontalOptions="CenterAndExpand" Text="Пол кота/кошки" />
+            <Entry Placeholder="введите текст" Text="{Binding gender}"/>
+            <Button x:Name="btn_Save" Clicked="btn_Save_Clicked" Text="Сохранить" />
+            <Button x:Name="btn_Delete" Clicked="btn_Delete_Clicked" Text="Удалить" />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
