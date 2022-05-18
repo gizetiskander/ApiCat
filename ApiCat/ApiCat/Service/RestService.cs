@@ -14,21 +14,19 @@ namespace ApiCat.Service
         HttpClient client;
         JsonSerializerOptions serializerOptions;
 
-        public List<CountModel> Items { get; private set; }
-
+        public List<CatModel> catModels { get; set; }
         public RestService()
         {
             client = new HttpClient();
             serializerOptions = new JsonSerializerOptions
             {
-                PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-                WriteIndented = true
+
             };
         }
 
-        public async Task<List<CountModel>> GetDataAsync()
+        public async Task<List<CatModel>> GetDataAsync()
         {
-            Items = new List<CountModel>();
+            catModels = new List<CatModel>();
 
             Uri uri = new Uri(string.Format(Constants.CatUri, string.Empty));
 
@@ -39,7 +37,7 @@ namespace ApiCat.Service
                 if (response.IsSuccessStatusCode)
                 {
                     string content = await response.Content.ReadAsStringAsync();
-                    Items = JsonSerializer.Deserialize<List<CountModel>>(content, serializerOptions);
+                    catModels = JsonSerializer.Deserialize<List<CatModel>>(content);
                 }
             }
             catch (Exception ex)
@@ -47,10 +45,59 @@ namespace ApiCat.Service
                 Debug.WriteLine(ex.Message);
             }
 
-            return Items;
+            return catModels;
+        }
+        public async Task SaveTodoItemAsync(CatModel item, bool isNewItem)
+        {
+            Uri uri = new Uri(string.Format(Constants.CatUri, string.Empty));
+            try
+            {
+                string json = JsonSerializer.Serialize(item, serializerOptions);
+                StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+
+                HttpResponseMessage response = null;
+                if (isNewItem)
+                {
+                    response = await client.PostAsync(uri, content);
+                }
+
+                else
+                {
+                    response = await client.PutAsync(uri, content);
+                }
+
+                if (response.IsSuccessStatusCode)
+                {
+                    Debug.WriteLine("@@@Success");
+                }
+            }
+
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
+        }
+        public async Task DeleteTodoItemAsync(CatModel item)
+        {
+            Uri uri = new Uri(string.Format(Constants.CatUri, item.id));
+
+            try
+            {
+                HttpResponseMessage httpResponseMessage = await client.DeleteAsync(uri);
+
+                if (httpResponseMessage.IsSuccessStatusCode)
+                {
+                    Debug.WriteLine("@@@Success");
+                }
+            }
+
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"@@@@@@@@@@//// {ex.Message}");
+            }
         }
 
-        Task<List<CountModel>> IRestService.GetDataAsync()
+        Task<List<CatModel>> IRestService.GetDataAsync()
         {
             throw new NotImplementedException();
         }

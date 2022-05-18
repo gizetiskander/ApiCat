@@ -10,18 +10,16 @@ using Xamarin.Forms.Xaml;
 namespace ApiCat.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class Page1 : ContentPage
+    public partial class CatViewPage : ContentPage
     {
-        public Page1()
+        public CatViewPage()
         {
             InitializeComponent();
-            
         }
 
         protected async override void OnAppearing()
         {
             base.OnAppearing();
-
             listView.ItemsSource = await App.CountManager.GetTasksAsync();
         }
     }

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ApiCat.Model
 {
-    public class EntryModel
+    public class CatModel
     {
 
         public string id { get; set; }

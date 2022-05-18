@@ -8,6 +8,8 @@ namespace ApiCat.Service
 {
     public interface IRestService
     {
-        Task<List<CountModel>> GetDataAsync();
+        Task<List<CatModel>> GetDataAsync();
+        Task SaveTodoItemAsync(CatModel item, bool isNewItem);
+        Task DeleteTodoItemAsync(CatModel item);
     }
 }

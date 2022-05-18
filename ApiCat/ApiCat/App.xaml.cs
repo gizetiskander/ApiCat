@@ -13,8 +13,11 @@ namespace ApiCat
         {
             InitializeComponent();
 
-            MainPage = new NavigationPage(new Page1());
+            CountManager = new EntryManager(new RestService());
+            MainPage = new NavigationPage(new CatViewPage());
         }
+
+
 
         protected override void OnStart()
         {
